@@ -7,12 +7,21 @@ public class AsteroidBehavior : MonoBehaviour {
     private float tumble = 5;
     public GameObject asteroidExplosion; // hieu ung no cua asteroid
     private float asteroidSpeed; // toc do 
+
+    public int scoreValue;
+    private GameController gameController;
     // Use this for initialization
 	void Start () {
         asteroidSpeed = -5f;
         rigid = GetComponent<Rigidbody>();
         rotateOvertime();
         Move();
+
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+            gameController = gameControllerObject.GetComponent<GameController>();
+        }
     }
 
 
@@ -35,6 +44,10 @@ public class AsteroidBehavior : MonoBehaviour {
             Destroy(gameObject);
             GameObject asteroidVFX = Instantiate(asteroidExplosion, gameObject.transform.position, gameObject.transform.rotation) as GameObject;
             Destroy(asteroidVFX,1);
+
+            //tang diem player
+            gameController.AddScore(scoreValue);
+            Debug.Log("Tang diem");
         }
     }
 }
