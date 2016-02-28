@@ -23,8 +23,18 @@ public class PlayerBehavior : MonoBehaviour {
     private float fireRate = 0.2f;
     private float nextFire = 0.0f;
     public GameObject playerExplosion; // hieu ung no cua player
+
+
+    HUDController hudController;
+    GameController gameController;
     // Use this for initialization
     void Start () {
+        GameObject hudControllerObject = GameObject.FindGameObjectWithTag("HUDController");
+        hudController = hudControllerObject.GetComponent<HUDController>();
+
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        gameController = gameControllerObject.GetComponent<GameController>();
+
         rigid = GetComponent<Rigidbody>();
         playerSpeed = 5.0f;
     }
@@ -61,22 +71,26 @@ public class PlayerBehavior : MonoBehaviour {
     }
 
 
-   // va phai asteroid
+   // bi giet
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.tag == "Asteroid")
+        if ((other.tag == "Asteroid") || (other.tag == "EnemyShip") || (other.tag =="EnemyBolt"))
         {
             Debug.Log("cham vao player");
             Destroy(other.gameObject);
             Destroy(gameObject);
             GameObject playerVFX = Instantiate(playerExplosion, other.transform.position, other.transform.rotation) as GameObject;
             Destroy(playerVFX, 1);
+
+            gameController.StopAllCoroutines();
+            hudController.HUD_Game_Over();
+
         }
     }
 
-    public AudioClip playerShootAudio;
-    public AudioClip playerExplosionAudio;
+    //public AudioClip playerShootAudio;
+    //public AudioClip playerExplosionAudio;
     void shootingShot()
     {   
         GameObject boltClone = Instantiate(bolt, shotSpawn.transform.position, shotSpawn.transform.rotation) as GameObject;

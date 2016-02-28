@@ -8,8 +8,8 @@ public class AsteroidBehavior : MonoBehaviour {
     public GameObject asteroidExplosion; // hieu ung no cua asteroid
     private float asteroidSpeed; // toc do 
 
-    public int scoreValue;
-    private GameController gameController;
+    public int scoreValue;          //so diem tuong ung voi asteroid
+    private GameController gameController;  
     // Use this for initialization
 	void Start () {
         asteroidSpeed = -5f;
