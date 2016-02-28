@@ -75,7 +75,7 @@ public class PlayerBehavior : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
 
-        if ((other.tag == "Asteroid") || (other.tag == "EnemyShip") || (other.tag =="EnemyBolt"))
+        if ((other.tag == "Asteroid") || (other.tag == "Enemy") || (other.tag =="EnemyBolt"))
         {
             Debug.Log("cham vao player");
             Destroy(other.gameObject);
